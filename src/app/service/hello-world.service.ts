@@ -6,9 +6,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HelloWorldService {
 
+  url = 'http://localhost:7000/hello-world-bean';
+
   constructor(private httpClient: HttpClient) { }
 
-  getResponse(url: string, name: string) {
-    return this.httpClient.get(url + '/' + name);
+  getResponse(name: string) {
+    return this.httpClient.get(this.url + '/' + name);
+  }
+
+  getResponseWithPathVariable(url: string) {
+    return this.httpClient.get(url);
   }
 }

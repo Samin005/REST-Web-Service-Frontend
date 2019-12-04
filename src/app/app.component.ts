@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HelloWorldService } from './service/hello-world.service';
 
 @Component({
@@ -6,8 +6,9 @@ import { HelloWorldService } from './service/hello-world.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'REST-Web-Service-Frontend';
+  name: string;
   message: string;
   responseErrorFound = false;
 
@@ -15,17 +16,19 @@ export class AppComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    this.helloWorldService.getResponse('http://localhost:7000/hello-world-bean', 'YOLO')
-      .subscribe(
-        (response: any) => {
-          this.message = response.message;
-          this.responseErrorFound = false;
-        },
-        (error) => {
-          this.message = error.name;
-          this.responseErrorFound = true;
-        }
-      );
+  getData() {
+    // for using path variable
+    // this.helloWorldService.getResponse(`http://localhost:7000/hello-world-bean/${this.name}`)
+    this.helloWorldService.getResponse(this.name)
+    .subscribe(
+      (response: any) => {
+        this.message = response.message;
+        this.responseErrorFound = false;
+      },
+      (error) => {
+        this.message = error.name;
+        this.responseErrorFound = true;
+      }, () => console.log('complete!')
+    );
   }
 }
