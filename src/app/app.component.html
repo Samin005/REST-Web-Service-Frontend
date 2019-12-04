@@ -3,10 +3,21 @@
   <h1>
     Response from port 7000: <span *ngIf="responseErrorFound" style="color: red;">(Error) </span>{{ message }}
   </h1>
-  <form (submit)="getData()">
-    <input type="text" placeholder="Name" [(ngModel)]="name" name="name">
-    <button type="submit">Get Data</button>
-  </form>
+  <div class="container">
+    <form (submit)="getData()">
+      <mat-form-field>
+        <input matInput placeholder="Enter Name" type="text" [(ngModel)]="name" name="name">
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="primary" type="submit">Get Data</button>
+    </form>
+  </div>
+  <mat-slider color="primary" min="1" max="100" step="1" value="1"></mat-slider>
+  <p id="text">
+    <ngb-alert [dismissible]="false">
+      <strong>Warning!</strong> Better check yourself, you're not looking too good.
+    </ngb-alert>
+  </p>
 </div>
 
 <router-outlet></router-outlet>
