@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HelloWorldService } from './service/hello-world.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent {
 
   }
 
-  getData() {
+  getData(form: NgForm) {
+    console.log(form.form.value.UserName);
     // for using path variable
     // this.helloWorldService.getResponse(`http://localhost:7000/hello-world-bean/${this.name}`)
     this.helloWorldService.getResponse(this.name)

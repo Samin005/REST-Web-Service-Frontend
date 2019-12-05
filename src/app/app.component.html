@@ -4,12 +4,12 @@
     Response from port 7000: <span *ngIf="responseErrorFound" style="color: red;">(Error) </span>{{ message }}
   </h1>
   <div class="container">
-    <form (submit)="getData()">
+    <form (ngSubmit)="getData(helloWorldForm)" #helloWorldForm="ngForm" ngNativeValidate>
       <mat-form-field>
-        <input matInput placeholder="Enter Name" type="text" [(ngModel)]="name" name="name">
+        <input matInput placeholder="Enter Name" type="text" [(ngModel)]="name" name="UserName" required>
       </mat-form-field>
       <br>
-      <button mat-raised-button color="primary" type="submit">Get Data</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!helloWorldForm.valid">Get Data</button>
     </form>
   </div>
   <mat-slider color="primary" min="1" max="100" step="1" value="1"></mat-slider>
