@@ -28,9 +28,11 @@ export class AppComponent {
         this.responseErrorFound = false;
       },
       (error) => {
+        console.log(error);
         this.message = error.name;
         this.responseErrorFound = true;
-      }, () => console.log('complete!')
+      },
+       () => console.log('complete!')
     );
   }
 }
