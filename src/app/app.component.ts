@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HelloWorldService } from './service/hello-world.service';
 import { NgForm } from '@angular/forms';
+import { BasicAuthService } from './service/basic-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,12 @@ export class AppComponent {
   name: string;
   message: string;
   responseErrorFound = false;
+  userName: string;
+  password: string;
+  logInSuccess = false;
 
-  constructor(private helloWorldService: HelloWorldService) {
+  constructor(private helloWorldService: HelloWorldService,
+     private basicAuthService: BasicAuthService) {
 
   }
 
@@ -34,5 +39,26 @@ export class AppComponent {
       },
        () => console.log('complete!')
     );
+  }
+
+  logInBasicAuth(loginForm: NgForm) {
+    console.log(loginForm.form.value.userName);
+    console.log(loginForm.form.value.password);
+    this.basicAuthService.username = loginForm.form.value.userName;
+    this.basicAuthService.password = loginForm.form.value.password;
+    this.basicAuthService.logInBasicAuth().subscribe(
+      (response: any) => {
+        console.log(response);
+        if(response.message === "You Are Authenticated"){
+          this.logInSuccess = true;
+        } else {
+          console.log(response);
+          this.logInSuccess = false;
+        }
+      }, 
+      (error) => {
+        console.log(error);
+        this.logInSuccess = false;
+      });
   }
 }

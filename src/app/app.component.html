@@ -1,5 +1,22 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div class="container text-center my-5">
+  <div *ngIf="loginForm.submitted && !logInSuccess">
+    <ngb-alert [dismissible]="false">
+      <strong>Invalid Credentials!</strong>
+    </ngb-alert>
+  </div>
+  <form (ngSubmit)="logInBasicAuth(loginForm)" #loginForm="ngForm" ngNativeValidate>
+    <mat-form-field>
+      <input matInput placeholder="Username" type="text" [(ngModel)]="userName" name="userName" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Password" type="Password" [(ngModel)]="password" name="password" required>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+  </form>
+</div>
+<div class="text-center" *ngIf="loginForm.submitted && logInSuccess">
   <h1>
     Response from port 7000: <span *ngIf="responseErrorFound" style="color: red;">(Error) </span>{{ message }}
   </h1>

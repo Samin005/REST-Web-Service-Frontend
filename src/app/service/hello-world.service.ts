@@ -17,10 +17,10 @@ export class HelloWorldService {
     return this.httpClient.get(this.url + '/' + name);
   }
 
-  getResponseWithPathVariable(url: string) {
-    // return this.httpClient.get(url, {headers: this.getAuthorizedHttpHeader()});
-    return this.httpClient.get(url);
-  }
+  // getResponseWithPathVariable(url: string) {
+  //   // return this.httpClient.get(url, {headers: this.getAuthorizedHttpHeader()});
+  //   return this.httpClient.get(url);
+  // }
 
   
   // getAuthorizedHttpHeader() {
