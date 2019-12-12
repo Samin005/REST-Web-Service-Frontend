@@ -15,6 +15,7 @@ export class AppComponent {
   responseErrorFound = false;
   userName: string;
   password: string;
+  // logInSuccess = false;
   logInFailed = false;
 
   constructor(private helloWorldService: HelloWorldService,
@@ -23,7 +24,7 @@ export class AppComponent {
   }
 
   getData(form: NgForm) {
-    console.log(this.name);
+    // console.log(this.name);
     // for using path variable
     // this.helloWorldService.getResponse(`http://localhost:7000/hello-world-bean/${this.name}`)
     this.helloWorldService.getResponse(this.name)
@@ -37,7 +38,7 @@ export class AppComponent {
         this.message = error.name;
         this.responseErrorFound = true;
       },
-       () => console.log('complete!')
+       () => console.log('Data Fetched!')
     );
   }
 
@@ -68,7 +69,6 @@ export class AppComponent {
     this.basicAuthService.password = loginForm.form.value.password;
     this.basicAuthService.logInJWTAuth().subscribe(
       (response: any) => {
-        console.log(response);
         this.basicAuthService.jwtToken = response.token;
         this.logInFailed = false;
       }, 
