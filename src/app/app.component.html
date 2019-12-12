@@ -1,10 +1,10 @@
 <div class="container text-center my-5">
-  <div *ngIf="loginForm.submitted && !logInSuccess">
+  <div *ngIf="loginForm.submitted && logInFailed">
     <ngb-alert [dismissible]="false">
       <strong>Invalid Credentials!</strong>
     </ngb-alert>
   </div>
-  <form (ngSubmit)="logInBasicAuth(loginForm)" #loginForm="ngForm" ngNativeValidate>
+  <form (ngSubmit)="logInJWTAuth(loginForm)" #loginForm="ngForm" ngNativeValidate>
     <mat-form-field>
       <input matInput placeholder="Username" type="text" [(ngModel)]="userName" name="userName" required>
     </mat-form-field>
@@ -16,7 +16,7 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
   </form>
 </div>
-<div class="text-center" *ngIf="loginForm.submitted && logInSuccess">
+<div class="text-center" *ngIf="loginForm.submitted && !logInFailed">
   <h1>
     Response from port 7000: <span *ngIf="responseErrorFound" style="color: red;">(Error) </span>{{ message }}
   </h1>

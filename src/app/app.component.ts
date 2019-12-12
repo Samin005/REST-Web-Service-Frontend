@@ -15,7 +15,7 @@ export class AppComponent {
   responseErrorFound = false;
   userName: string;
   password: string;
-  logInSuccess = false;
+  logInFailed = false;
 
   constructor(private helloWorldService: HelloWorldService,
      private basicAuthService: BasicAuthService) {
@@ -23,7 +23,7 @@ export class AppComponent {
   }
 
   getData(form: NgForm) {
-    console.log(form.form.value.UserName);
+    console.log(this.name);
     // for using path variable
     // this.helloWorldService.getResponse(`http://localhost:7000/hello-world-bean/${this.name}`)
     this.helloWorldService.getResponse(this.name)
@@ -41,24 +41,40 @@ export class AppComponent {
     );
   }
 
-  logInBasicAuth(loginForm: NgForm) {
-    console.log(loginForm.form.value.userName);
-    console.log(loginForm.form.value.password);
+  // Used for Basic Spring Security
+  // logInBasicAuth(loginForm: NgForm) {
+  //   console.log(loginForm.form.value.userName);
+  //   console.log(loginForm.form.value.password);
+  //   this.basicAuthService.username = loginForm.form.value.userName;
+  //   this.basicAuthService.password = loginForm.form.value.password;
+  //   this.basicAuthService.logInBasicAuth().subscribe(
+  //     (response: any) => {
+  //       console.log(response);
+  //       if(response.message === "You Are Authenticated"){
+  //         this.logInSuccess = true;
+  //       } else {
+  //         console.log(response);
+  //         this.logInSuccess = false;
+  //       }
+  //     }, 
+  //     (error) => {
+  //       console.log(error);
+  //       this.logInSuccess = false;
+  //     });
+  // }
+
+  logInJWTAuth(loginForm: NgForm) {
     this.basicAuthService.username = loginForm.form.value.userName;
     this.basicAuthService.password = loginForm.form.value.password;
-    this.basicAuthService.logInBasicAuth().subscribe(
+    this.basicAuthService.logInJWTAuth().subscribe(
       (response: any) => {
         console.log(response);
-        if(response.message === "You Are Authenticated"){
-          this.logInSuccess = true;
-        } else {
-          console.log(response);
-          this.logInSuccess = false;
-        }
+        this.basicAuthService.jwtToken = response.token;
+        this.logInFailed = false;
       }, 
       (error) => {
         console.log(error);
-        this.logInSuccess = false;
+        this.logInFailed = true;
       });
   }
 }

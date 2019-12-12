@@ -9,11 +9,23 @@ export class HttpInterceptorService implements HttpInterceptor{
 
   constructor(private basicAuthService: BasicAuthService) { }
 
+  // Used for Basic Spring Security
+  // intercept(req: HttpRequest<any>, next: HttpHandler) {
+  //   req = req.clone({
+  //     setHeaders: {
+  //       'Content-Type':  'application/json',
+  //       'Authorization': 'Basic ' + btoa(this.basicAuthService.username + ':' + this.basicAuthService.password)
+  //     }
+  //   });
+    
+  //   return next.handle(req);
+  // }
+
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     req = req.clone({
       setHeaders: {
         'Content-Type':  'application/json',
-        'Authorization': 'Basic ' + btoa(this.basicAuthService.username + ':' + this.basicAuthService.password)
+        'Authorization': 'Bearer ' + this.basicAuthService.jwtToken
       }
     });
     
